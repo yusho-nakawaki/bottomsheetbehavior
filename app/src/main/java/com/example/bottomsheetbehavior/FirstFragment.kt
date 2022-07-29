@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.bottomsheetbehavior.databinding.FragmentFirstBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -32,8 +33,20 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val behavior = BottomSheetBehavior.from(binding.bottomSheet)
+        behavior.state = BottomSheetBehavior.STATE_HIDDEN
+
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                behavior.state = BottomSheetBehavior.STATE_HIDDEN
+            }
+            if (behavior.state == BottomSheetBehavior.STATE_HIDDEN) {
+                behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+            if (behavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }
 
