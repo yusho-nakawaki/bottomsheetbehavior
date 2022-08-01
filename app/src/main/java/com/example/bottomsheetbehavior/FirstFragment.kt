@@ -37,6 +37,9 @@ class FirstFragment : Fragment() {
         behavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         binding.buttonFirst.setOnClickListener {
+
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+
             if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
                 behavior.state = BottomSheetBehavior.STATE_HIDDEN
             }
@@ -46,7 +49,6 @@ class FirstFragment : Fragment() {
             if (behavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }
 

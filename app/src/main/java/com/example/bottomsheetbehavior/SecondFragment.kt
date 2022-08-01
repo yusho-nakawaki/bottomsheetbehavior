@@ -1,10 +1,12 @@
 package com.example.bottomsheetbehavior
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.size
 import androidx.navigation.fragment.findNavController
 import com.example.bottomsheetbehavior.databinding.FragmentSecondBinding
 
@@ -36,9 +38,15 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
 
-        binding.rankComposeView.setContent {
-            ProfileEditPage()
+        binding.openTextButton.setOnClickListener {
+            val lp = binding.scrollText.layoutParams
+            lp.height = binding.textView.height
+            binding.scrollText.layoutParams = lp
         }
+
+//        binding.rankComposeView.setContent {
+//            ProfileEditPage()
+//        }
     }
 
     override fun onDestroyView() {
