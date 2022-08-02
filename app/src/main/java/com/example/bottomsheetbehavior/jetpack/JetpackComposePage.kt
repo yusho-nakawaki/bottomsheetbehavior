@@ -3,6 +3,7 @@ package com.example.bottomsheetbehavior.jetpack
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -20,10 +21,30 @@ fun JetpackComposePage() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        for (i in 1..10) {
+        for (i in 1..5) {
             Text(
                 text = "アイウエオ: " + i.toString(),
                  modifier = Modifier.padding(10.dp),
+                style = TextStyle(fontSize = 20.sp)
+            )
+            Spacer(modifier = Modifier.height(50.dp))
+        }
+
+        BasicTextField(
+            value = "1 ああああああああああああああああああああああああああああああああああああああああああああああああ¥nあああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ¥nあああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああend",
+            onValueChange = {},
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(30.dp)
+        )
+
+
+
+        for (i in 1..5) {
+            Text(
+                text = "アイウエオ: " + i.toString(),
+                modifier = Modifier.padding(10.dp),
                 style = TextStyle(fontSize = 20.sp)
             )
             Spacer(modifier = Modifier.height(50.dp))
