@@ -1,5 +1,6 @@
 package com.example.bottomsheetbehavior
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.view.size
 import androidx.navigation.fragment.findNavController
 import com.example.bottomsheetbehavior.databinding.FragmentSecondBinding
+import com.example.bottomsheetbehavior.jetpack.JetpackComposeActivity
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -35,7 +37,9 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+//            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            val intent = JetpackComposeActivity.createIntent(requireContext())
+            startActivity(intent)
         }
 
         binding.openTextButton.setOnClickListener {
