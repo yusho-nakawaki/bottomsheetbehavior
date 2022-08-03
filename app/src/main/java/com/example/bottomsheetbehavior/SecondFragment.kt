@@ -1,5 +1,6 @@
 package com.example.bottomsheetbehavior
 
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -43,9 +44,31 @@ class SecondFragment : Fragment() {
         }
 
         binding.openTextButton.setOnClickListener {
-            val lp = binding.scrollText.layoutParams
-            lp.height = binding.textView.height
-            binding.scrollText.layoutParams = lp
+            if (binding.scrollText.measuredHeight == binding.textView.measuredHeight) {
+                val expandTextAnimator = ValueAnimator.ofFloat(binding.scrollText.measuredHeight.toFloat(), 150*(requireContext().resources.displayMetrics.density))
+                expandTextAnimator.duration = 500L
+                Log.d("aaa111", "Float: ${150*(requireContext().resources.displayMetrics.density)}")
+                Log.d("aaa111", "Int: ${150*(requireContext().resources.displayMetrics.density).toInt()}")
+                Log.d("aaa111", "Float to Int: ${(150*(requireContext().resources.displayMetrics.density)).toInt()}")
+                expandTextAnimator.addUpdateListener {
+                    val animatedValue = expandTextAnimator.animatedValue as? Float ?: return@addUpdateListener
+                    val layoutParams = binding.scrollText.layoutParams
+                    layoutParams.height = animatedValue.toInt()
+                    binding.scrollText.layoutParams = layoutParams
+                }
+                expandTextAnimator.start()
+            }
+            else {
+                val expandTextAnimator = ValueAnimator.ofInt(binding.scrollText.measuredHeight, binding.textView.measuredHeight)
+                expandTextAnimator.duration = 500L
+                expandTextAnimator.addUpdateListener {
+                    val animatedValue = expandTextAnimator.animatedValue as Int
+                    val layoutParams = binding.scrollText.layoutParams
+                    layoutParams.height = animatedValue
+                    binding.scrollText.layoutParams = layoutParams
+                }
+                expandTextAnimator.start()
+            }
         }
 
 //        binding.rankComposeView.setContent {
