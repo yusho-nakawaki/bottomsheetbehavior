@@ -36,9 +36,9 @@ class FirstFragment : Fragment() {
         val behavior = BottomSheetBehavior.from(binding.bottomSheet)
         behavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+//        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
 
             if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
                 behavior.state = BottomSheetBehavior.STATE_HIDDEN

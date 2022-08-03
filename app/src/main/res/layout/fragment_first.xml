@@ -4,17 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
     tools:context=".FirstFragment">
-
-    <TextView
-        android:id="@+id/textview_first"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_first_fragment"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_first"
@@ -43,12 +34,19 @@
             app:behavior_peekHeight="500dp"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <io.github.glailton.expandabletextview.ExpandableTextView
+                android:id="@+id/text_top"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                expandableTextView:collapsedLines="3"
+                expandableTextView:animDuration="500"
+                expandableTextView:readMoreText="もっと読む"
+                expandableTextView:readLessText="折りたたむ"
+                expandableTextView:textMode="line"
+                expandableTextView:isExpanded="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-                android:text="Menu"
+                android:text="「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, "
                 android:textSize="18sp" />
 
             <TextView
