@@ -1,13 +1,18 @@
 package com.example.bottomsheetbehavior
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.bottomsheetbehavior.databinding.FragmentFirstBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -50,10 +55,46 @@ class FirstFragment : Fragment() {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         }
+
+        // 実際に実装するとしたらこれかな
+        binding.foldTextButton.setOnClickListener {
+            val randomText = randomText()
+            binding.foldTextView.textSize = ((10..16).random()).toFloat()
+            binding.foldTextView.text = randomText
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(200)
+                val lineNum = binding.foldTextView.lineCount
+                binding.answerLineCountText.text = "lineCount: $lineNum"
+                Log.d("aaa111", "lineCount of randomText: $lineNum")
+            }
+
+//            val lineNum = binding.foldTextView.lineCount
+//            binding.answerText.text = "lineCount: $lineNum"
+//            Log.d("aaa111", "lineCount of randomText: $lineNum")
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun randomText(): String {
+        val text = "ああああああ"
+        val newLine = "\n"
+        var randomText = ""
+        for (i in 1..5) {
+            for (j in 1..(1..15).random()) {
+                randomText += text
+            }
+            if (7 < (0..10).random()) {
+                if (i == 5) break
+                for (j in 0..(0..1).random()) {
+                    randomText += newLine
+                }
+            }
+        }
+        return  randomText
     }
 }

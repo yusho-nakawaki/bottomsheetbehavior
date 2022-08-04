@@ -38,7 +38,7 @@
                 android:id="@+id/text_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                expandableTextView:collapsedLines="3"
+                expandableTextView:collapsedLines="2"
                 expandableTextView:animDuration="500"
                 expandableTextView:readMoreText="もっと読む"
                 expandableTextView:readLessText="折りたたむ"
@@ -46,38 +46,46 @@
                 expandableTextView:isExpanded="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-                android:text="「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, "
-                android:textSize="18sp" />
+                android:text="「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, "
+                android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/fold_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
+                android:text="「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fold_text_button"
+                android:layout_width="190dp"
+                android:layout_height="35dp"
+                android:text="getLineStart"
+                android:textSize="12sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:id="@+id/answer_line_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:text="Menu"
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/answer_three_line_height_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-                android:text="Menu"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:text="Menu"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:text="Menu"
                 android:textSize="18sp" />
             <TextView
