@@ -67,6 +67,11 @@ class FirstFragment : Fragment() {
                 val lineNum = binding.foldTextView.lineCount
                 binding.answerLineCountText.text = "lineCount: $lineNum"
                 Log.d("aaa111", "lineCount of randomText: $lineNum")
+
+                // 3行目がtextの何番目か？
+                val textIndex = binding.foldTextView.layout.getLineStart(3) - 1//gain
+                binding.answerThreeLineHeightText.text = "textIndex: $textIndex"
+                Log.d("aaa111", "height at 3 line: $textIndex")
             }
 
 //            val lineNum = binding.foldTextView.lineCount
@@ -81,16 +86,16 @@ class FirstFragment : Fragment() {
     }
 
     private fun randomText(): String {
-        val text = "ああああああ"
+        val text = "１２３４５６７８９」"
         val newLine = "\n"
         var randomText = ""
         for (i in 1..5) {
-            for (j in 1..(1..15).random()) {
+            for (j in 1..(1..5).random()) {
                 randomText += text
             }
-            if (7 < (0..10).random()) {
+            if (4 < (0..10).random()) {
                 if (i == 5) break
-                for (j in 0..(0..1).random()) {
+                for (j in 0..(0..4).random()) {
                     randomText += newLine
                 }
             }
