@@ -136,6 +136,12 @@ class FirstFragment : Fragment() {
                 }
             }
         }
+
+        // ランダムで1行のみとかを表示
+        if (4 < (0..10).random()) {
+            randomText = "これは1行のみのテキスト"
+        }
+
         return  randomText
     }
 
