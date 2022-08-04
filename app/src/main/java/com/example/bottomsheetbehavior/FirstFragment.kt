@@ -1,5 +1,6 @@
 package com.example.bottomsheetbehavior
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,11 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import androidx.lifecycle.lifecycleScope
 import com.example.bottomsheetbehavior.databinding.FragmentFirstBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -58,7 +56,7 @@ class FirstFragment : Fragment() {
         // 実際に実装するとしたらこれかな
         binding.foldTextButton.setOnClickListener {
             val randomText = randomText()
-            binding.foldTextView.textSize = ((15..15).random()).toFloat()
+            binding.foldTextView.textSize = ((10..20).random()).toFloat()
             binding.foldTextView.text = randomText
 
 
@@ -74,13 +72,21 @@ class FirstFragment : Fragment() {
                     override fun onGlobalLayout() {
                         if (binding.foldTextView.lineCount > 0) {
                             binding.foldTextView.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                            val lineNum = binding.foldTextView.lineCount
-                            binding.answerLineCountText.text = "lineCount: $lineNum"
-                            Log.d("aaa111", "lineCount of randomText: $lineNum")
+                            val lineCount = binding.foldTextView.lineCount
+                            binding.answerLineCountText.text = "lineCount: $lineCount"
+//                            Log.d("aaa111", "lineCount of randomText: $lineCount")
+
+                            if (lineCount > 3) {
+                                binding.readMoreButton.visibility = View.VISIBLE
+                            }
+                            else {
+                                binding.readMoreButton.visibility = View.GONE
+                            }
                         }
                     }
                 }
             )
+
 //            viewLifecycleOwner.lifecycleScope.launch {
 //                delay(200)
 //                val lineCount = binding.foldTextView.lineCount
@@ -94,6 +100,20 @@ class FirstFragment : Fragment() {
 //            }
 
         }
+
+        binding.readMoreButton.setOnClickListener {
+            Log.d("aaa111", "aaa: ${binding.foldTextView.lineCount}")
+            Log.d("aaa111", "bbb: ${binding.foldTextView.maxLines}")
+            if (1000 == binding.foldTextView.maxLines) {
+                binding.foldTextView.maxLines = 3
+                binding.readMoreButton.text = "もっと見る"
+            }
+            else {
+                binding.foldTextView.maxLines = 1000
+                binding.readMoreButton.text = "閉じる"
+            }
+        }
+
     }
 
     override fun onDestroyView() {
@@ -109,13 +129,17 @@ class FirstFragment : Fragment() {
             for (j in 1..(1..5).random()) {
                 randomText += text
             }
-//            if (4 < (0..10).random()) {
-//                if (i == 5) break
-//                for (j in 0..(0..4).random()) {
-//                    randomText += newLine
-//                }
-//            }
+            if (4 < (0..10).random()) {
+                if (i == 5) break
+                for (j in 0..(0..4).random()) {
+                    randomText += newLine
+                }
+            }
         }
         return  randomText
+    }
+
+    private fun expandableTextView() {
+
     }
 }
