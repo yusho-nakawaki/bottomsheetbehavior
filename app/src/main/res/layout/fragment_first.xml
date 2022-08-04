@@ -49,14 +49,38 @@
                 android:text="「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, 「これは十文字だ」, this is 21 characters, "
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/fold_text_view"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:text="「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,"
-                />
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:id="@+id/fold_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text="「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/read_more_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="...もっと見る"
+                    android:textSize="15sp"
+                    android:lineHeight="15sp"
+                    android:textColor="@color/teal_200"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fold_text_button"

@@ -6,9 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.unit.sp
+import android.view.ViewTreeObserver
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.example.bottomsheetbehavior.databinding.FragmentFirstBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.delay
@@ -59,24 +58,41 @@ class FirstFragment : Fragment() {
         // 実際に実装するとしたらこれかな
         binding.foldTextButton.setOnClickListener {
             val randomText = randomText()
-            binding.foldTextView.textSize = ((10..16).random()).toFloat()
+            binding.foldTextView.textSize = ((15..15).random()).toFloat()
             binding.foldTextView.text = randomText
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                delay(200)
-                val lineNum = binding.foldTextView.lineCount
-                binding.answerLineCountText.text = "lineCount: $lineNum"
-                Log.d("aaa111", "lineCount of randomText: $lineNum")
 
-                // 3行目がtextの何番目か？
-                val textIndex = binding.foldTextView.layout.getLineStart(3) - 1//gain
-                binding.answerThreeLineHeightText.text = "textIndex: $textIndex"
-                Log.d("aaa111", "height at 3 line: $textIndex")
-            }
+//            binding.foldTextView.post(Runnable {
+//                val lineNum = binding.foldTextView.lineCount
+//                binding.answerLineCountText.text = "lineCount: $lineNum"
+//                Log.d("aaa111", "lineCount of randomText: $lineNum")
+//            })
 
-//            val lineNum = binding.foldTextView.lineCount
-//            binding.answerText.text = "lineCount: $lineNum"
-//            Log.d("aaa111", "lineCount of randomText: $lineNum")
+
+            binding.foldTextView.viewTreeObserver.addOnGlobalLayoutListener (
+                object : ViewTreeObserver.OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        if (binding.foldTextView.lineCount > 0) {
+                            binding.foldTextView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                            val lineNum = binding.foldTextView.lineCount
+                            binding.answerLineCountText.text = "lineCount: $lineNum"
+                            Log.d("aaa111", "lineCount of randomText: $lineNum")
+                        }
+                    }
+                }
+            )
+//            viewLifecycleOwner.lifecycleScope.launch {
+//                delay(200)
+//                val lineCount = binding.foldTextView.lineCount
+//                binding.answerLineCountText.text = "lineCount: $lineCount"
+//                Log.d("aaa111", "lineCount of randomText: $lineCount")
+//
+//                // 3行目がtextの何番目か？
+////                val textIndex = binding.foldTextView.layout.getLineStart(3) - 1//gain
+////                binding.answerThreeLineHeightText.text = "textIndex: $textIndex"
+////                Log.d("aaa111", "height at 3 line: $textIndex")
+//            }
+
         }
     }
 
@@ -93,12 +109,12 @@ class FirstFragment : Fragment() {
             for (j in 1..(1..5).random()) {
                 randomText += text
             }
-            if (4 < (0..10).random()) {
-                if (i == 5) break
-                for (j in 0..(0..4).random()) {
-                    randomText += newLine
-                }
-            }
+//            if (4 < (0..10).random()) {
+//                if (i == 5) break
+//                for (j in 0..(0..4).random()) {
+//                    randomText += newLine
+//                }
+//            }
         }
         return  randomText
     }
