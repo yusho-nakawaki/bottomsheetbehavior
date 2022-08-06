@@ -27,6 +27,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        Log.d("aaa1111", "onCreateView")
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -59,47 +60,31 @@ class FirstFragment : Fragment() {
             binding.foldTextView.textSize = ((10..20).random()).toFloat()
             binding.foldTextView.text = randomText
 
-
 //            binding.foldTextView.post(Runnable {
 //                val lineNum = binding.foldTextView.lineCount
 //                binding.answerLineCountText.text = "lineCount: $lineNum"
 //                Log.d("aaa111", "lineCount of randomText: $lineNum")
 //            })
+        }
 
-
-            binding.foldTextView.viewTreeObserver.addOnGlobalLayoutListener (
-                object : ViewTreeObserver.OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        if (binding.foldTextView.lineCount > 0) {
-                            binding.foldTextView.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                            val lineCount = binding.foldTextView.lineCount
-                            binding.answerLineCountText.text = "lineCount: $lineCount"
-//                            Log.d("aaa111", "lineCount of randomText: $lineCount")
-
-                            if (lineCount > 3) {
-                                binding.readMoreButton.visibility = View.VISIBLE
-                            }
-                            else {
-                                binding.readMoreButton.visibility = View.GONE
-                            }
+        binding.foldTextView.viewTreeObserver.addOnGlobalLayoutListener (
+            object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    if (binding.foldTextView.lineCount > 0) {
+                        // 何かlayoutを変更するならremoveListenerしなきゃいけなく、private methodにしてbinding.foldTextButton.setOnClickListenerの時にも呼ぶ必要がある
+//                        binding.foldTextView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        val lineCount = binding.foldTextView.lineCount
+//                        binding.answerLineCountText.text = "lineCount: $lineCount"
+                        if (lineCount > 3) {
+                            binding.readMoreButton.visibility = View.VISIBLE
+                        }
+                        else {
+                            binding.readMoreButton.visibility = View.GONE
                         }
                     }
                 }
-            )
-
-//            viewLifecycleOwner.lifecycleScope.launch {
-//                delay(200)
-//                val lineCount = binding.foldTextView.lineCount
-//                binding.answerLineCountText.text = "lineCount: $lineCount"
-//                Log.d("aaa111", "lineCount of randomText: $lineCount")
-//
-//                // 3行目がtextの何番目か？
-////                val textIndex = binding.foldTextView.layout.getLineStart(3) - 1//gain
-////                binding.answerThreeLineHeightText.text = "textIndex: $textIndex"
-////                Log.d("aaa111", "height at 3 line: $textIndex")
-//            }
-
-        }
+            }
+        )
 
         binding.readMoreButton.setOnClickListener {
             Log.d("aaa111", "aaa: ${binding.foldTextView.lineCount}")
@@ -138,7 +123,7 @@ class FirstFragment : Fragment() {
         }
 
         // ランダムで1行のみとかを表示
-        if (4 < (0..10).random()) {
+        if (4 <= (0..10).random()) {
             randomText = "これは1行のみのテキスト"
         }
 

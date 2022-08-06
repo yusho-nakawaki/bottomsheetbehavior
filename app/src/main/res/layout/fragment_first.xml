@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="3"
                     android:background="@color/white"
-                    android:text="「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,"
+                    android:text="「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」,「これは十文字だ」"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     />
