@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import androidx.navigation.fragment.findNavController
 import com.example.bottomsheetbehavior.databinding.FragmentFirstBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
@@ -123,8 +124,11 @@ class FirstFragment : Fragment() {
         }
 
         // ランダムで1行のみとかを表示
-        if (4 <= (0..10).random()) {
+        if (6 <= (0..10).random()) {
             randomText = "これは1行のみのテキスト"
+        }
+        if (8 < (0..10).random()) {
+            randomText = ""
         }
 
         return  randomText
