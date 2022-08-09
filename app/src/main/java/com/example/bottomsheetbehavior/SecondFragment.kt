@@ -38,9 +38,9 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSecond.setOnClickListener {
-//            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-            val intent = JetpackComposeActivity.createIntent(requireContext())
-            startActivity(intent)
+            findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
+//            val intent = JetpackComposeActivity.createIntent(requireContext())
+//            startActivity(intent)
         }
 
         binding.openTextButton.setOnClickListener {
