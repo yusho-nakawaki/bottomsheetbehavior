@@ -26,8 +26,6 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        Log.d("aaa1111", "onCreateView")
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -87,8 +85,8 @@ class FirstFragment : Fragment() {
         )
 
         binding.readMoreButton.setOnClickListener {
-            Log.d("aaa111", "aaa: ${binding.foldTextView.lineCount}")
-            Log.d("aaa111", "bbb: ${binding.foldTextView.maxLines}")
+//            Log.d("aaa111", "aaa: ${binding.foldTextView.lineCount}")
+//            Log.d("aaa111", "bbb: ${binding.foldTextView.maxLines}")
             if (1000 == binding.foldTextView.maxLines) {
                 binding.foldTextView.maxLines = 3
                 binding.readMoreButton.text = "もっと見る"

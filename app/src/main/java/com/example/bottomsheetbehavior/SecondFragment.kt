@@ -12,11 +12,13 @@ import androidx.core.view.size
 import androidx.navigation.fragment.findNavController
 import com.example.bottomsheetbehavior.databinding.FragmentSecondBinding
 import com.example.bottomsheetbehavior.jetpack.JetpackComposeActivity
+import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class SecondFragment : Fragment(), CoroutineScope by MainScope() {
 
     private var _binding: FragmentSecondBinding? = null
 
@@ -34,11 +36,15 @@ class SecondFragment : Fragment() {
 
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
+            launch {
+                coroutineExperiment()
+            }
+//            findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment)
 //            val intent = JetpackComposeActivity.createIntent(requireContext())
 //            startActivity(intent)
         }
@@ -47,9 +53,9 @@ class SecondFragment : Fragment() {
             if (binding.scrollText.measuredHeight == binding.textView.measuredHeight) {
                 val expandTextAnimator = ValueAnimator.ofFloat(binding.scrollText.measuredHeight.toFloat(), 150*(requireContext().resources.displayMetrics.density))
                 expandTextAnimator.duration = 500L
-                Log.d("aaa111", "Float: ${150*(requireContext().resources.displayMetrics.density)}")
-                Log.d("aaa111", "Int: ${150*(requireContext().resources.displayMetrics.density).toInt()}")
-                Log.d("aaa111", "Float to Int: ${(150*(requireContext().resources.displayMetrics.density)).toInt()}")
+//                Log.d("aaa111", "Float: ${150*(requireContext().resources.displayMetrics.density)}")
+//                Log.d("aaa111", "Int: ${150*(requireContext().resources.displayMetrics.density).toInt()}")
+//                Log.d("aaa111", "Float to Int: ${(150*(requireContext().resources.displayMetrics.density)).toInt()}")
                 expandTextAnimator.addUpdateListener {
                     val animatedValue = expandTextAnimator.animatedValue as? Float ?: return@addUpdateListener
                     val layoutParams = binding.scrollText.layoutParams
@@ -79,5 +85,24 @@ class SecondFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    @ExperimentalCoroutinesApi
+    private suspend fun coroutineExperiment() {
+        val dispatcher = Dispatchers.Main // took 5030 and frozen
+//        val dispatcher = Dispatchers.Default // took 2001
+//        val dispatcher = Dispatchers.IO // took 1001
+//        val dispatcher = Dispatchers.Default.limitedParallelism(1) // took 5006
+        val job = Job()
+        repeat(5) {
+            coroutineScope {
+                launch(dispatcher + job) {
+                    Thread.sleep(1000)
+                }
+            }
+        }
+        job.complete()
+        val time = measureTimeMillis { job.join() }
+        Log.d("aaa111", "Took $time")
     }
 }
