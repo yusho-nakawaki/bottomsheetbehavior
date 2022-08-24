@@ -23,6 +23,7 @@ import kotlin.system.measureTimeMillis
 class SecondFragment :
     Fragment(),
 //    CoroutineScope by MainScope() {
+//    CoroutineScope by DefaultScope() {
     CoroutineScope by IOScope() {
 
     private var _binding: FragmentSecondBinding? = null
@@ -128,4 +129,8 @@ class SecondFragment :
 
 class IOScope : CoroutineScope {
     override val coroutineContext: CoroutineContext = Dispatchers.IO + SupervisorJob()
+}
+
+class DefaultScope : CoroutineScope {
+    override val coroutineContext: CoroutineContext = Dispatchers.Default + SupervisorJob()
 }
