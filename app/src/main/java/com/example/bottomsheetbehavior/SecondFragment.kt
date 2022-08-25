@@ -22,9 +22,9 @@ import kotlin.system.measureTimeMillis
  */
 class SecondFragment :
     Fragment(),
-//    CoroutineScope by MainScope() {
+    CoroutineScope by MainScope() {
 //    CoroutineScope by DefaultScope() {
-    CoroutineScope by IOScope() {
+//    CoroutineScope by IOScope() {
 
     private var _binding: FragmentSecondBinding? = null
 
@@ -96,22 +96,24 @@ class SecondFragment :
 
     @ExperimentalCoroutinesApi
     private suspend fun coroutineExperiment() {
-//        val dispatcher = Dispatchers.Main                                                                      // took 5030 and frozen
-//        val dispatcher = Dispatchers.Default                                                                     // took 2001
-        val dispatcher = Dispatchers.IO                                                                        // took 1001
-//        val dispatcher = Dispatchers.Default.limitedParallelism(1)                                                                     // took 5006
+//        val dispatcher = Dispatchers.Main                    // took 5030 and frozen
+//        val dispatcher = Dispatchers.Default                // took 2001
+        val dispatcher = Dispatchers.IO                     // took 1001
+//        val dispatcher = Dispatchers.Default.limitedParallelism(1)      // took 5006
         val job = Job()
-        repeat(5) {
+        repeat(70) {
             coroutineScope {
                 launch(dispatcher + job) {
-                    Thread.sleep(1000)
+                    val threadName = Thread.currentThread().name
+                    Log.d("aaa111", "running on $threadName")
+//                    Thread.sleep(1000)
+                    delay(1000)
                 }
             }
         }
         job.complete()
         val time = measureTimeMillis { job.join() }
-        val threadName = Thread.currentThread().name
-        Log.d("aaa111", "Took $time, running on $threadName")
+        Log.d("aaa111", "Took $time")
     }
 
     private suspend fun checkThreadName() = coroutineScope {
